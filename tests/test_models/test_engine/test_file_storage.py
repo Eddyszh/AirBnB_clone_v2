@@ -3,6 +3,7 @@
 import unittest
 from models.base_model import BaseModel
 from models import storage
+from models.state import State
 import os
 
 
@@ -37,9 +38,28 @@ class test_fileStorage(unittest.TestCase):
 
     def test_all(self):
         """ __objects is properly returned """
+        if os.path.exists('file.json'):
+            os.remove('file.json')
         new = BaseModel()
         temp = storage.all()
         self.assertIsInstance(temp, dict)
+        new_state = State()
+        new_state.name = "California"
+        storage.new(new_state)
+        storage.save()
+        dt = storage.all(State)
+        self.assertEqual(1, len(dt.keys()))
+        another_state = State()
+        another_state.name = "Nevada"
+        storage.new(another_state)
+        storage.save()
+        dt = storage.all(State)
+        self.assertEqual(2, len(dt.keys()))
+        storage.delete(another_state)
+        dt = storage.all(State)
+        self.assertEqual(1, len(dt.keys()))
+        os.remove('file.json')
+
 
     def test_base_model_instantiation(self):
         """ File is not created on BaseModel save """
