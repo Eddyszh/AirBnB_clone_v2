@@ -2,7 +2,7 @@
 """DATABASE Module"""
 from models.base_model import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
@@ -22,7 +22,7 @@ class DBStorage():
         self.__engine = create_engine(
             'mysql+mysqldb://{}:{}@{}/{}'.format(
                 getenv("HBNB_MYSQL_USER"), getenv("HBNB_MYSQL_PWD"),
-                getenv("localhost"), getenv("HBNB_MYSQL_DB")),
+                getenv("HBNB_MYSQL_HOST"), getenv("HBNB_MYSQL_DB")),
             pool_pre_ping=True)
 
         if getenv("HBNB_ENV") == 'test':
@@ -61,7 +61,7 @@ class DBStorage():
         """Create all tables in the database"""
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
-            bind=self.__engine, expire_on_commit=false)
+            bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
 
