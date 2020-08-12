@@ -30,7 +30,7 @@ class DBStorage():
 
     def all(self, cls=None):
         """Query on the current database session"""
-        tables = [City, State, User, Place]
+        tables = [City, State, User, Place, Review]
         it = []
         if cls is None:
             for i in tables:
