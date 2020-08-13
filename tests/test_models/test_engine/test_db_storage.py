@@ -12,6 +12,7 @@ from models.user import User
 from os import getenv
 from sqlalchemy.orm import sessionmaker
 
+
 @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') != 'db', "test in db storage")
 class test_DbStorage(unittest.TestCase):
     def testAmenity(self):
