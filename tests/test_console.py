@@ -75,6 +75,8 @@ class testConsole(unittest.TestCase):
         """
         pass
 
+    @unittest.skipIf(
+        os.getenv('HBNB_TYPE_STORAGE') != 'db', "won't work in db")
     def test_console_do_create(self):
         """test_console_do_count
 
