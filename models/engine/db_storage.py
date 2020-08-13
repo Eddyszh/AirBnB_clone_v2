@@ -2,7 +2,7 @@
 """DATABASE Module"""
 from models.base_model import Base
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session, relationship
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
@@ -30,7 +30,7 @@ class DBStorage():
 
     def all(self, cls=None):
         """Query on the current database session"""
-        tables = [City, State, User, Place, Review]
+        tables = [City, State, User, Place, Review, Amenity]
         it = []
         if cls is None:
             for i in tables:
