@@ -60,12 +60,12 @@ class Place(BaseModel, Base):
             from models import storage
             from models.review import Amenity
             objList = []
-            for amenity in storage.all(Amenity):
-                if amenity.id in self.amenity_ids:
+            for key, value in storage.all(Amenity).items():
+                if key.id in self.amenity_ids:
                     objList.append(value)
             return objList
 
-        @property.setter
+        @amenities.setter
         def amenities(self, obj):
             """Return reviews instance list"""
             from models import storage
