@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel, Base, BaseClass
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
 from os import getenv
@@ -10,7 +10,7 @@ class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
     place_amenity = Table(
-            'place_amenity', Base.metadata,
+            'place_amenity', BaseClass.metadata,
             Column('place_id', String(60), ForeignKey(
                 'places.id'), primary_key=True, nullable=False),
             Column('amenity_id', String(60), ForeignKey(
@@ -51,17 +51,18 @@ class Place(BaseModel, Base):
             from models.review import Review
             objList = []
             for key, value in storage.all(Review).items():
-                objList.append(value)
+                if value['place_id'] == self.id:
+                    objList.append(value)
             return objList
 
         @property
         def amenities(self):
             """Return amenities instance list"""
             from models import storage
-            from models.review import Amenity
+            from models.amenity import Amenity
             objList = []
             for key, value in storage.all(Amenity).items():
-                if key.id in self.amenity_ids:
+                if value.id == self.amenity_ids:
                     objList.append(value)
             return objList
 
@@ -69,6 +70,6 @@ class Place(BaseModel, Base):
         def amenities(self, obj):
             """Return reviews instance list"""
             from models import storage
-            from models.review import Amenity
+            from models.amenity import Amenity
             if type(obj) == Amenity:
                 self.amenity_ids.apped(obj.id)
