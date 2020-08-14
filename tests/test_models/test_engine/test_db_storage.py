@@ -18,7 +18,7 @@ class test_DbStorage(unittest.TestCase):
     def testAmenity(self):
         amenity = Amenity(name="Internet")
         if amenity.id in models.storage.all():
-            self.assertTrue(amenity.name, "Cable")
+            self.assertTrue(amenity.name, "Internet")
 
     def testCity(self):
         city = City(name="Medellin")
