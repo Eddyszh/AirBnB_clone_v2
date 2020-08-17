@@ -5,7 +5,7 @@ apt-get install -y nginx
 ufw allow "Nginx HTTP"
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
-printf %s "<html>
+echo "<html>
   <head>
   </head>
   <body>
@@ -13,6 +13,6 @@ printf %s "<html>
   </body>
 </html>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test /data/web_static/current
-chown -R ubuntu:ubuntu /data
+chown -R ubuntu:ubuntu /data/
 sed -i "/server_name _;/ a \\\tlocation /hbnb_static {\n\t\talias /data/web_static/current/;\n\t} " /etc/nginx/sites-available/default
 service nginx restart
