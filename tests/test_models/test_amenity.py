@@ -27,7 +27,7 @@ class test_Amenity(unittest.TestCase):
     def test_pep8_amenity(self):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['models/amenity.py'])
-        self.assertEqual(result.total_errors, 0)
+        self.assertEqual(result.total_errors, 0, "fix pep8")
 
     def test_subclass(self):
         self.assertTrue(issubclass(self.my_amenity.__class__, BaseModel), True)
@@ -39,20 +39,18 @@ class test_Amenity(unittest.TestCase):
         self.assertTrue('updated_at' in self.my_amenity.__dict__)
 
     def test_attributes_str(self):
-        self.assertEqual(type(self.my_amenity.email), str)
-        self.assertEqual(type(self.my_amenity.password), str)
-        self.assertEqual(type(self.my_amenity.first_name), str)
-        self.assertEqual(type(self.my_amenity.last_name), str)
+        self.assertEqual(type(self.my_amenity.name), str)
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "test skip")
     def test_save(self):
         """ """
         self.my_amenity.save()
-        self.assertNotEqual(self.my_amenity.created_at, self.my_amenity.updated_at)
+        self.assertNotEqual(
+            self.my_amenity.created_at, self.my_amenity.updated_at)
 
     def test_to_dict(self):
         """ """
-        self.assertEqual('to_dic' in dir(self.my_amenity), True)
+        self.assertEqual('to_dict' in dir(self.my_amenity), True)
 
 if __name__ == "__main__":
     unittest.main()

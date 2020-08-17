@@ -28,7 +28,7 @@ class test_City(unittest.TestCase):
     def test_pep8_city(self):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['models/city.py'])
-        self.assertEqual(result.total_errors, 0)
+        self.assertEqual(result.total_errors, 0, "fix pep8")
 
     def test_subclass(self):
         self.assertTrue(issubclass(self.my_city.__class__, BaseModel), True)
@@ -52,7 +52,7 @@ class test_City(unittest.TestCase):
 
     def test_to_dict(self):
         """ """
-        self.assertEqual('to_dic' in dir(self.my_city), True)
+        self.assertEqual('to_dict' in dir(self.my_city), True)
 
 if __name__ == "__main__":
     unittest.main()

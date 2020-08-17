@@ -12,12 +12,13 @@ from models.user import User
 from os import getenv
 from sqlalchemy.orm import sessionmaker
 
+
 @unittest.skipIf(getenv('HBNB_TYPE_STORAGE') != 'db', "test in db storage")
 class test_DbStorage(unittest.TestCase):
     def testAmenity(self):
         amenity = Amenity(name="Internet")
         if amenity.id in models.storage.all():
-            self.assertTrue(amenity.name, "Cable")
+            self.assertTrue(amenity.name, "Internet")
 
     def testCity(self):
         city = City(name="Medellin")

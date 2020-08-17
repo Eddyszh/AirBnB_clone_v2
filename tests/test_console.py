@@ -5,6 +5,7 @@
 import unittest
 import console
 import pep8
+import sys
 from models import storage
 from models.base_model import BaseModel
 from models.amenity import Amenity
@@ -75,8 +76,6 @@ class testConsole(unittest.TestCase):
         """
         pass
 
-    @unittest.skipIf(
-        os.getenv('HBNB_TYPE_STORAGE') != 'db', "won't work in db")
     def test_console_do_create(self):
         """test_console_do_count
 
@@ -107,7 +106,6 @@ class testConsole(unittest.TestCase):
 
     def test_console_do_update(self):
         pass
-
 
 if __name__ == "__main__":
     unittest.main()

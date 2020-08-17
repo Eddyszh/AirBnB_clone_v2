@@ -37,12 +37,15 @@ class test_Place(unittest.TestCase):
     def test_pep8_place(self):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['models/place.py'])
-        self.assertEqual(result.total_errors, 0)
+        self.assertEqual(result.total_errors, 0, "fix pep8")
 
     def test_subclass(self):
         self.assertTrue(issubclass(self.my_place.__class__, BaseModel), True)
 
     def test_attributes(self):
+        self.assertTrue('id' in self.my_place.__dict__)
+        self.assertTrue('created_at' in self.my_place.__dict__)
+        self.assertTrue('updated_at' in self.my_place.__dict__)
         self.assertTrue('city_id' in self.my_place.__dict__)
         self.assertTrue('user_id' in self.my_place.__dict__)
         self.assertTrue('name' in self.my_place.__dict__)
@@ -53,23 +56,20 @@ class test_Place(unittest.TestCase):
         self.assertTrue('price_by_night' in self.my_place.__dict__)
         self.assertTrue('latitude' in self.my_place.__dict__)
         self.assertTrue('longitude' in self.my_place.__dict__)
-        self.assertTrue('amenity_ids' in self.my_place.__dict__)
-        self.assertTrue('id' in self.my_place.__dict__)
-        self.assertTrue('created_at' in self.my_place.__dict__)
-        self.assertTrue('updated_at' in self.my_place.__dict__)
+        #self.assertTrue('amenity_ids' in self.my_place.__dict__)
 
     def test_attributes_str(self):
         self.assertEqual(type(self.my_place.city_id), str)
         self.assertEqual(type(self.my_place.user_id), str)
         self.assertEqual(type(self.my_place.name), str)
         self.assertEqual(type(self.my_place.description), str)
-        self.assertEqual(type(self.my_place.number_rooms), str)
-        self.assertEqual(type(self.my_place.number_bathrooms), str)
-        self.assertEqual(type(self.my_place.max_guest), str)
-        self.assertEqual(type(self.my_place.price_by_night), str)
-        self.assertEqual(type(self.my_place.latitude), str)
-        self.assertEqual(type(self.my_place.longitude), str)
-        self.assertEqual(type(self.my_place.amenity_ids), str)
+        self.assertEqual(type(self.my_place.number_rooms), int)
+        self.assertEqual(type(self.my_place.number_bathrooms), int)
+        self.assertEqual(type(self.my_place.max_guest), int)
+        self.assertEqual(type(self.my_place.price_by_night), int)
+        self.assertEqual(type(self.my_place.latitude), float)
+        self.assertEqual(type(self.my_place.longitude), float)
+        self.assertEqual(type(self.my_place.amenity_ids), list)
 
     @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE') == 'db', "test skip")
     def test_save(self):
@@ -79,7 +79,7 @@ class test_Place(unittest.TestCase):
 
     def test_to_dict(self):
         """ """
-        self.assertEqual('to_dic' in dir(self.my_place), True)
+        self.assertEqual('to_dict' in dir(self.my_place), True)
 
 if __name__ == "__main__":
     unittest.main()
