@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 # Sets up web servers for the deployment of web_static
-if ! which nginx > /dev/null 2>&1; then
-  sudo apt-get -y update
-  sudo apt-get install -y nginx
-fi
-mkdir -p /data/web_static/shared/
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
 mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/shared/
 echo "<html>
   <head>
   </head>
@@ -14,6 +13,7 @@ echo "<html>
   </body>
 </html>" > /data/web_static/releases/test/index.html
 ln -sf /data/web_static/releases/test /data/web_static/current
-chown -R ubuntu:ubuntu /data/
-sed -i "/server_name _;/ a \\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-enabled/default
-sudo service nginx restart
+chown -R ubuntu:ubuntu /data
+sed -i "/listen 80 default_server/a location /hbnb_static/ { alias /data/web_static/current/; }" /etc/nginx/sites-available/default
+service nginx restart
+exit 0
