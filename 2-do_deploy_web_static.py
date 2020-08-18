@@ -29,19 +29,19 @@ def do_deploy(archive_path):
     file_name = archive_path[9:]
     dir_name = "/data/web_static/releases" + file_name[:-4]
     file_name = "/tmp/" + file_name
-    if not run("mkdir -p {}".format(dir_name)).succeeded:
+    if not run('mkdir -p {}'.format(dir_name)).succeeded:
         return False
-    if not run("tar -zxf {} -c {}".format(file_name, dir_name)).succeeded:
+    if not run('tar -zxf {} -c {}'.format(file_name, dir_name)).succeeded:
         return False
-    if not run("rm {}".format(file_name)).succeeded:
+    if not run('rm {}'.format(file_name)).succeeded:
         return False
-    if not run("mv {}/web_static/* {}".format(dir_name, dir_name)).succeeded:
+    if not run('mv {}/web_static/* {}'.format(dir_name, dir_name)).succeeded:
         return False
-    if not run("rm -rf {}/web_static/".format(dir_name)).succeeded:
+    if not run('rm -rf {}/web_static/'.format(dir_name)).succeeded:
         return False
-    if not run("rm -rf /data/web_static/current").succeeded:
+    if not run('rm -rf /data/web_static/current').succeeded:
         return False
-    return run("ln -s {} /data/web_static/current".format(dir_name)).succeeded
+    return run('ln -s {} /data/web_static/current'.format(dir_name)).succeeded
 
 if __name__ == "__main__":
     do_pack()
