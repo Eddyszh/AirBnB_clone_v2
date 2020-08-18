@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ distributes an archive to web servers
 """
-from fabric.operations import local
+from fabric.operations import local, run, put, env
 from datetime import datetime
 import os
 
