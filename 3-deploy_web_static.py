@@ -5,8 +5,8 @@ from fabric.operations import local, run, put, env
 from datetime import datetime
 import os
 
-env.user = "ubuntu"
-env.hosts = ["34.75.116.54", "35.243.144.246"]
+env.user = 'ubuntu'
+env.hosts = ['34.75.116.54', '35.243.144.246']
 
 
 def do_pack():
@@ -19,6 +19,7 @@ def do_pack():
         return name
     else:
         return None
+
 
 def do_deploy(archive_path):
     """distribute an archive"""
@@ -42,6 +43,7 @@ def do_deploy(archive_path):
     if not run('rm -rf /data/web_static/current').succeeded:
         return False
     return run('ln -s {} /data/web_static/current'.format(dir_name)).succeeded
+
 
 def deploy():
     """distribute an archive"""
