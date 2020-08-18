@@ -33,6 +33,8 @@ def do_deploy(archive_path):
         return False
     if not run("tar -zxf {} -c {}".format(file_name, dir_name)).succeeded:
         return False
+    if not run("rm {}".format(file_name)).succeeded:
+        return False
     if not run("mv {}/web_static/* {}".format(dir_name, dir_name)).succeeded:
         return False
     if not run("rm -rf {}/web_static/".format(dir_name)).succeeded:
