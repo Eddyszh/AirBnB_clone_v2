@@ -28,7 +28,7 @@ def do_deploy(archive_path):
     if not put(archive_path, "/tmp/").succeeded:
         return False
     file_name = archive_path[9:]
-    dir_name = "/data/web_static/releases" + file_name[:-4]
+    dir_name = "/data/web_static/releases/" + file_name[:-4]
     file_name = "/tmp/" + file_name
     if not run('mkdir -p {}'.format(dir_name)).succeeded:
         return False

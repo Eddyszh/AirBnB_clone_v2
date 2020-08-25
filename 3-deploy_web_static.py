@@ -11,7 +11,7 @@ env.hosts = ['34.75.116.54', '35.243.144.246']
 
 def do_pack():
     """Crates a .tgz"""
-    name = "./versions/web_static_{}.tgz"
+    name = "versions/web_static_{}.tgz"
     name = name.format(datetime.now().strftime("%Y%m%d%H%M%S"))
     local("mkdir -p versions")
     create = local("tar -zcvf {} web_static".format(name))
@@ -28,7 +28,7 @@ def do_deploy(archive_path):
     if not put(archive_path, "/tmp/").succeeded:
         return False
     file_name = archive_path[9:]
-    dir_name = "/data/web_static/releases" + file_name[:-4]
+    dir_name = "/data/web_static/releases/" + file_name[:-4]
     file_name = "/tmp/" + file_name
     if not run('mkdir -p {}'.format(dir_name)).succeeded:
         return False
