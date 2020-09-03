@@ -22,10 +22,6 @@ class State(BaseModel, Base):
             from models import storage
             from models.city import City
             objList = []
-            for key, value in storage.all().items():
-                try:
-                    if value.state_id == self.id:
-                        objList.append(value)
-                except AttributeError:
-                    pass
+            for key, value in storage.all(City).items():
+                objList.append(value)
             return objList
