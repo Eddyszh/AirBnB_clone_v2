@@ -10,16 +10,22 @@ class State(BaseModel, Base):
     """ State class """
 
     __tablename__ = "states"
-    name = Column(String(128), nullable=False)
-    cities = relationship("City", backref="state", cascade="all, delete")
+    if os.getenv('HBNB_TYPE_STORAGE') == 'db':
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", backref="state", cascade="all, delete")
+    else:
+        name = ""
 
-    if getenv("HBNB_TYPE_STORAGE") != "db":
         @property
         def cities(self):
             """Return states instance list"""
             from models import storage
             from models.city import City
             objList = []
-            for key, value in storage.all(City).items():
-                objList.append(value)
+            for key, value in storage.all().items():
+                try:
+                    if value.state_id == self.id:
+                        objList.append(value)
+                except AttributeError:
+                    pass
             return objList
